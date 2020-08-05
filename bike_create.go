@@ -22,7 +22,7 @@ func (bi *BikeIndex) BikeCreate(id int64, options BikeCreate) (*BikeCreate, *Exc
 		return nil, nil, errBikeIDRequired
 	} else if options.Serial == "" {
 		return nil, nil, errBikeSerialRequired
-	} else if options.ManufacturerName == "" && options.ManufacturerID == 0 {
+	} else if options.ManufacturerName == "" && options.ManufacturerID == "" {
 		return nil, nil, errBikeManufacturerRequired
 	} else if options.OwnerEmail == nil || *options.OwnerEmail == "" {
 		return nil, nil, errBikeOwnerEmailRequired
