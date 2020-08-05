@@ -64,6 +64,16 @@ func (bi *BikeIndex) get(url string) (*http.Response, error) {
 	return bi.do(req)
 }
 
+// perform a delete request
+func (bi *BikeIndex) delete(url string) (*http.Response, error) {
+	req, err := http.NewRequest(http.MethodDelete, url, nil)
+	if err != nil {
+		return nil, err
+	}
+	// req.SetBasicAuth(twilio.getBasicAuthCredentials())
+	return bi.do(req)
+}
+
 // perform a post request
 func (bi *BikeIndex) post(values url.Values, url string) (*http.Response, error) {
 	req, err := http.NewRequest(http.MethodPost, bi.APIURL, strings.NewReader(values.Encode()))
