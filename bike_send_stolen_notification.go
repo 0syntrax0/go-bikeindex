@@ -24,8 +24,8 @@ func (bi *BikeIndex) SendStolenNotification(id int64, options SendStolenNotifica
 		return nil, nil, err
 	}
 
-	url := bi.buildURL("bikes", strconv.FormatInt(id, 10)) //".json"
-	res, err := bi.put(form, url)
+	url := bi.buildURL("bikes", strconv.FormatInt(id, 10), "send_stolen_notification") //".json"
+	res, err := bi.post(form, url)
 	if err != nil {
 		return nil, nil, err
 	}
