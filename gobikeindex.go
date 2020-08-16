@@ -45,6 +45,8 @@ func NewBikeindexCustomClient(id, secret string, HTTPClient *http.Client) *BikeI
 		HTTPClient = defaultClient
 	}
 
+	// TODO: implement OAuth2
+
 	return &BikeIndex{
 		ID:         id,
 		Secret:     secret,
@@ -57,7 +59,7 @@ func NewBikeindexCustomClient(id, secret string, HTTPClient *http.Client) *BikeI
 
 // performs a get request
 func (bi *BikeIndex) get(url string) (*http.Response, error) {
-	req, err := http.NewRequest(http.MethodGet, bi.APIURL, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}

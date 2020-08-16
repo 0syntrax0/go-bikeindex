@@ -8,15 +8,6 @@ import (
 	"testing"
 )
 
-func createTestServer(testString string) *httptest.Server {
-	srv := httptest.NewServer(http.HandlerFunc(
-		func(w http.ResponseWriter, r *http.Request) {
-			fmt.Fprintf(w, testString)
-		}))
-	defer srv.Close()
-	return srv
-}
-
 func TestSearch(t *testing.T) {
 	// create test server
 	srv := httptest.NewServer(http.HandlerFunc(
