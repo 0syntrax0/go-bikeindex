@@ -14,18 +14,23 @@ const (
 	baseURL       = "https://bikeindex.org/"
 	apiVersion3   = "v3"
 	apiURL        = baseURL + "api/" + apiVersion3
+	tokenURL      = baseURL + "oauth/token"
 	clientTimeout = time.Second * 30
 )
 
-// The default http.Client to use if nothing is specified
-var defaultClient = &http.Client{
-	Timeout: clientTimeout,
-}
+var (
+	// The default http.Client to use if nothing is specified
+	defaultClient = &http.Client{
+		Timeout: clientTimeout,
+	}
+)
 
 // BikeIndex stores basic infor when connecting to their API
 type BikeIndex struct {
-	ID          string
-	Secret      string
+	appID        string
+	secret       string
+	refreshToken string
+
 	Name        string
 	BaseURL     string
 	APIVersion  string
@@ -35,12 +40,12 @@ type BikeIndex struct {
 }
 
 // NewBikeIndexClient creates a new bikeindex
-func NewBikeIndexClient(id, secret string) *BikeIndex {
-	return NewBikeindexCustomClient(id, secret, nil)
+func NewBikeIndexClient(appID, secret string) *BikeIndex {
+	return NewBikeindexCustomClient(appID, secret, nil)
 }
 
 // NewBikeindexCustomClient creates a new bikeindex client with custom http.client
-func NewBikeindexCustomClient(id, secret string, HTTPClient *http.Client) *BikeIndex {
+func NewBikeindexCustomClient(appID, secret string, HTTPClient *http.Client) *BikeIndex {
 	if HTTPClient == nil {
 		HTTPClient = defaultClient
 	}
@@ -48,8 +53,8 @@ func NewBikeindexCustomClient(id, secret string, HTTPClient *http.Client) *BikeI
 	// TODO: implement OAuth2
 
 	return &BikeIndex{
-		ID:         id,
-		Secret:     secret,
+		appID:      appID,
+		secret:     secret,
 		BaseURL:    baseURL,
 		APIURL:     apiURL,
 		APIVersion: apiVersion3,
