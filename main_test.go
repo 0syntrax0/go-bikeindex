@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"os"
 )
 
 // creates test server
@@ -14,4 +15,14 @@ func createTestServer(testString string) *httptest.Server {
 		}))
 	defer srv.Close()
 	return srv
+}
+
+// ***********************************************************
+// TODO: DELETE BEFORE FINALAZING
+// ***********************************************************
+func appID() string {
+	return os.Getenv("BIKEINDEX_APPID")
+}
+func appSecret() string {
+	return os.Getenv("BIKEINDEX_SECRET")
 }
